@@ -1,0 +1,83 @@
+﻿
+@using StudentCourseRegistrationMVC.Models;
+@model Student
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $('#table_id').dataTable({
+            
+            "paging": true
+        
+});
+    });
+</script>
+
+
+<table id="table_id"
+       class="table table-condensed table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.studentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.studentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.userName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (Student student in (Student[])ViewBag.StudentList)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @student.studentId
+                </td>
+                <td>
+                    @student.studentName
+                </td>
+                <td>
+                    @student.userName
+                </td>
+                <td>
+                    @student.phoneNo
+                </td>
+                <td>
+                    @student.country
+                </td>
+                <td>
+                    @student.email
+                </td>
+
+                <td>
+                </td>
+            </tr>
+
+        </tbody>
+    }
+</table>
+

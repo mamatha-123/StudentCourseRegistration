@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "SignUp";
+}
+
+
+@using (Html.BeginForm("Register", "Student"))
+
+{
+<div>
+
+    <table align="center">
+        <tr>
+            <td>@Html.DisplayName("StudentName")</td>
+            <td>@Html.TextBox("txtStudentName")</td>
+        </tr>
+       
+        <tr>
+            <td>@Html.DisplayName("Email")</td>
+            <td>@Html.TextBox("txtEmail")</td>
+        </tr>
+     
+        <tr>
+            <td>@Html.DisplayName("UserName")</td>
+            <td>@Html.TextBox("txtUserName")</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayName("Password")</td>
+            <td>@Html.TextBox("txtPassword")</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayName("PhoneNumber")</td>
+            <td>@Html.TextBox("txtPhoneNo")</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayName("Country")</td>
+            <td>@Html.TextBox("txtCountry")</td>
+
+        </tr>
+        <tr>
+            <td><input type="submit" value="Register" /></td>
+
+    </table>
+
+</div>
+
+}

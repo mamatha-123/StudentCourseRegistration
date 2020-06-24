@@ -1,0 +1,156 @@
+﻿
+
+@model StudentCourseRegistrationMVC.Models.Student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+@*<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+    <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">*@
+@*<script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $('#table_id').dataTable();
+        });
+    </script>*@
+
+<style>
+
+    #btnEnroll {
+        background-color: royalblue; 
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+       
+    }
+
+
+    #table_id {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        padding-top: 100px;
+    }
+
+        #table_id td, #table_id th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+
+        #table_id th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            align-content: center;
+        }
+
+        #table_id tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #table_id tr:hover {
+            background-color: #ddd;
+        }
+
+        #table_id th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+
+<div>
+    <table id="table_id"
+           class="table table-condensed table-striped table-hover" align="center" style="height:200px; width:300px">
+        <tbody>
+            <tr>
+                <th colspan="2">STUDENT DETAILS</th>
+
+            </tr>
+            <tr>
+                <td align="left">
+                    @Html.DisplayNameFor(model => model.studentId)
+                </td>
+                <td align="left">
+                    @Html.DisplayFor(model => model.studentId)
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    @Html.DisplayNameFor(model => model.studentName)
+                </td>
+                <td align="left">
+                    @Html.DisplayFor(model => model.studentName)
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    @Html.DisplayNameFor(model => model.userName)
+                </td>
+                <td align="left">
+                    @Html.DisplayFor(model => model.userName)
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    @Html.DisplayNameFor(model => model.phoneNo)
+                </td>
+                <td align="left">
+                    @Html.DisplayFor(model => model.phoneNo)
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    @Html.DisplayNameFor(model => model.country)
+                </td>
+
+                <td align="left">
+                    @Html.DisplayFor(model => model.country)
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    @Html.DisplayNameFor(model => model.email)
+                </td>
+                <td align="left">
+                    @Html.DisplayFor(model => model.email)
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    @using (Html.BeginForm("CourseList", "Course"))
+
+    {
+        <div align="center">
+            <table align="center">
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="ENROLL COURSE" id="btnEnroll" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+
+       
+    </div>

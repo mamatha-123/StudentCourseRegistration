@@ -1,0 +1,311 @@
+﻿@using StudentCourseRegistrationMVC.Models;
+@model Course
+<html>
+<head>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(function () {
+
+                $('#btnEnroll').click(function () {
+                    var checkBoxes = document.getElementsByName("checkBoxes");
+
+                    var checkboxesChecked = new Array();
+                    // loop over them all
+                    for (var i = 0; i < checkBoxes.length; i++) {
+                        // And stick the checked ones onto an array...
+                        if (checkBoxes[i].checked) {
+                            //alert(checkBoxes[i].id);
+                            checkboxesChecked.push(checkBoxes[i].id);
+                        }
+
+                    }
+
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Student/EnrollCourse",
+                            data: JSON.stringify(checkboxesChecked),
+                            dataType: "json",
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                value = data.msg;
+                                alert(data.msg);
+                                //window.location.pathname = "https://localhost:44399/Student/Details/" + value;
+                                // window.location.pathname = "/Student/Details/" + value;
+                            },
+                            error: function (data) {
+
+                                alert("Enroll failed");
+
+                            }
+                        });
+
+
+
+                });
+            });
+        });
+    </script>
+    <style>
+
+        #btnEnroll {
+            background-color: royalblue; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+
+        #table_id {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            padding-top: 100px;
+        }
+
+            #table_id td, #table_id th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+
+            #table_id th {
+                border: 1px solid #ddd;
+                padding: 8px;
+                align-content: center;
+            }
+
+            #table_id tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #table_id tr:hover {
+                background-color: #ddd;
+            }
+
+            #table_id th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: center;
+                background-color: #4CAF50;
+                color: white;
+            }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial;
+            padding: 10px;
+            background: #f1f1f1;
+        }
+
+        /* Header/Blog Title */
+        .header {
+            padding: 30px;
+            text-align: center;
+            background: white;
+        }
+
+            .header h1 {
+                font-size: 50px;
+            }
+
+        /* Style the top navigation bar */
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            /* Style the topnav links */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                /* Change color on hover */
+                .topnav a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+        /* Create two unequal columns that floats next to each other */
+        /* Left column */
+        .leftcolumn {
+            float: left;
+            width: 75%;
+        }
+
+        /* Right column */
+        .rightcolumn {
+            float: left;
+            width: 25%;
+            background-color: #f1f1f1;
+            padding-left: 20px;
+        }
+
+        /* Fake image */
+        .fakeimg {
+            background-color: #f2f2f2;
+            width: 100%;
+        }
+
+        /* Fake image */
+        .TrendingCourse {
+            background-color: aquamarine;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Add a card effect for articles */
+        .card {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background: #ddd;
+            margin-top: 20px;
+        }
+
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+
+    </style>
+</head>
+<body>
+
+    <div class="row">
+        <div class="leftcolumn">
+            <div class="card">
+                <table id="table_id"
+                       class="table table-condensed table-striped table-hover" align="center" style="height:400px; width:700px">
+                    <tbody>
+                        <tr>
+                            <th colspan="6">LIST OF COURSES</th>
+
+                        </tr>
+
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.courseId)</th>
+                            <th>@Html.DisplayNameFor(model => model.courseName)</th>
+                            <th>@Html.DisplayNameFor(model => model.courseDetail)</th>
+                            <th>@Html.DisplayNameFor(model => model.fees)</th>
+                            <th>@Html.DisplayNameFor(model => model.duration)</th>
+                            <th>@Html.Display("Select")</th>
+                        </tr>
+
+                        @foreach (Course course in (Course[])ViewBag.CoursetList)
+                        {
+                            <tr>
+                                <td>
+                                    @course.courseId
+                                </td>
+                                <td>
+                                    @course.courseName
+                                </td>
+                                <td>
+                                    @course.courseDetail
+                                </td>
+                                <td>
+                                    @course.fees
+                                </td>
+                                <td>
+                                    @course.duration
+                                </td>
+                                <td>
+                                    <input type="checkbox" id="@course.courseId" name="checkBoxes" />
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+                <br />
+                <br />
+
+                <div align="center">
+                    <table align="center">
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input id="btnEnroll" type="button" value="Course Enroll" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="card">
+
+                <div class="fakeimg" style="height:200px;">
+
+                    <img height="200px" width="400px" src="~/Images/image1.jpg" />
+                    <img height="200px" width="400px" src="~/Images/image2.jpg" />
+                    <img height="200px" width="400px" src="~/Images/image3.jpg" />
+                </div>
+
+            </div>
+        </div>
+        <div class="rightcolumn">
+            <div class="card">
+                <h3>Trending Courses</h3>
+                <div class="TrendingCourse">
+                    <marquee width="60%" direction="down" height="100px" style="color:darkviolet">
+                        <p>Spring Boot MicroServices</p>
+                        <p>Python</p>
+                        <p>Big Data</p>
+                        <p>Java</p>
+                        <p>Machine Learning</p>
+                        <p>Dot net</p>
+                        <p>Microsoft azure</p>
+                        <p>Scrum</p>
+
+                    </marquee>
+                </div>
+
+            </div>
+            <div class="card">
+                <h3>Reference Links</h3>
+                <a href="https://www.w3schools.com">Visit W3Schools.com!</a><br />
+                <a href="https://www.dotnetcurry.com">Visit dot Net curry.com!</a><br />
+                <a href="https://www.javatpoint.com">Visit Javatpoint.com!</a><br />
+                <a href="https://www.c-sharpcorner.com">Visit c-sharpcorner .com!</a><br />
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h2>Contact Details</h2>
+        <p>Ramu</p>
+        <p>9440139687</p>
+        <p>ramu@gmail.com</p>
+        <p>Lb Nagar, Hyderabad</p>
+
+    </div>
+
+</body>
+</html>

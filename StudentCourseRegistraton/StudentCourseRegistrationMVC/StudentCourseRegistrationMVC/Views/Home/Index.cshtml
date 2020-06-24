@@ -1,0 +1,283 @@
+﻿
+<link href="~/CSS/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/CSS/LoginSignup.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<style>
+
+    span {
+        color:red
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+
+        $(function ()
+        {
+
+            $('#txtStudentName').mouseout(function () {
+                if ($("#txtStudentName").val() == "") {
+                    $("#txtStudentName").next().show();
+                }
+                else {
+                    $("#txtStudentName").next().hide();
+                }
+
+            });
+            $('#txtUserName').mouseout(function () {
+                if ($("#txtUserName").val() == "") {
+                    $("#txtUserName").next().show();
+                }
+                else {
+                    $("#txtUserName").next().hide();
+                }
+
+            });
+            $('#txtPassword').mouseout(function () {
+                if ($("#txtPassword").val()== "") {
+                    $("#txtPassword").next().show();
+                }
+                else {
+                    $("#txtPassword").next().hide();
+                }
+
+            });
+            $('#txtPhoneNo').mouseout(function () {
+                if ($("#txtPhoneNo").val() == "") {
+                    $("#txtPhoneNo").next().show();
+                }
+                else {
+                    $("#txtPhoneNo").next().hide();
+                }
+
+            });
+
+            $('#txtEmail').mouseout(function () {
+                if ($("#txtEmail").val() == "") {
+                    $("#txtEmail").next().show();
+                }
+                else {
+                    $("#txtEmail").next().hide();
+                }
+
+            });
+
+
+            $("#btnLogin").click(function () {
+                var UserDetails = {
+                    userName: $("#txtLoginUserName").val(),
+                    password: $("#txtLoginPassword").val()
+                };
+
+
+
+                // alert(UserDetails.userName);
+                //alert(UserDetails.password);
+                var value;
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Student/UserLogin",
+                        data: JSON.stringify(UserDetails),
+                        dataType: "json",
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            value = data.msg;
+                           // alert("You will now be redirected.");
+                            //window.location.pathname = "https://localhost:44399/Student/Details/" + value;  
+                            if (value !="UserLogin Failed") {
+                                window.location.pathname = "/Student/Details/" + value;
+                            }
+                            else {
+                                alert("Incorrect User name and Password");
+                            }
+                        },
+                            error: function (data) {
+
+                                alert("User Login failed");
+
+                            }
+                        });
+         
+
+
+            });
+            $('#btnSignUp').click(function ()
+            {
+
+
+
+               // event.preventDefault();
+                var student={
+                    studentName: $("#txtStudentName").val(),
+                    userName: $("#txtUserName").val(),
+                    password: $("#txtPassword").val(),
+                    email: $("#txtEmail").val(),
+                    phoneNo: $("#txtPhoneNo").val(),
+                    country: $("#selCounty").val()
+
+                };
+
+                var isValidate = true;
+
+
+                if (student.studentName == "") {
+                    $("#txtStudentName").next().show();
+                    isValidate = false;
+                   // $("#txtStudentName").next().focus();
+                }
+
+
+
+                if (student.email == "") {
+                    $("#txtEmail").next().show();
+                    isValidate = false;
+                   // $("#txtEmail").next().focus();
+                }
+
+
+
+
+                if (student.userName == "") {
+                    $("#txtUserName").next().show();
+                    isValidate = false;
+                   // $("#txtUserName").next().focus();
+                }
+
+
+                if (student.password == "") {
+                    $("#txtPassword").next().show();
+                    isValidate = false;
+                   // $("#txtPassword").next().focus();
+                }
+
+
+
+                if (student.phoneNo == "") {
+                    $("#txtPhoneNo").next().show();
+                    isValidate = false;
+                   
+                }
+
+               
+                if (isValidate == true) {
+
+                    $("#txtPhoneNo").next().hide();
+                    $("#txtPassword").next().hide();
+                    $("#txtUserName").next().hide();
+                    $("#txtEmail").next().hide();
+                    $("#txtStudentName").next().hide();
+
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Student/Register",
+                            data: JSON.stringify(student),
+                            dataType: "json",
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                alert(data.msg);
+                                
+                            },
+                            error: function (data) {
+                                alert(data.msg)
+                            }
+                        });
+                }
+
+
+            });
+        });
+    });
+
+
+</script>
+
+<div class="container register">
+    <div class="row">
+
+ 
+        <div class="col-md-3 register-left">
+            <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+            <h3>Welcome</h3>
+       
+            <table>
+                <tr>
+                    <td> <input id="txtLoginUserName" type="text" placeholder="User Name *" value="" /></td>
+                </tr>
+                <tr>
+                    <td> <input id="txtLoginPassword" type="password" placeholder="Password *" value="" /></td>
+                </tr>
+
+            </table>
+
+            <input id="btnLogin" type="button" name="" value="Login" />
+        </div>
+    
+        <div class="col-md-9 register-right">
+           
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Apply as a Student</h3>
+                    <div class="row register-form">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input id="txtStudentName" type="text" class="form-control" placeholder="Name *" value="" />
+                                <span style="display:none">Please Enter Name</span>
+                            </div>
+                            <div class="form-group">
+
+                                <input id="txtUserName" type="text" class="form-control" placeholder="UserName *" value="" />
+                                <span style="display:none">Please Enter UserName</span>
+
+                            </div>
+                            <div class="form-group">
+                                <input id="txtPassword" type="password" class="form-control" placeholder="Password *" value="" />
+                                <span style="display:none">Please Enter Password</span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input id="txtEmail" type="email" class="form-control" placeholder="Your Email *" value="" />
+                                <span style="display:none">Please Enter Email</span>
+                            </div>
+                            <div class="form-group">
+                                <input id="txtPhoneNo" type="text" minlength="10" maxlength="10" name="Phone" class="form-control" placeholder="Your Phone *" value="" />
+                                <span style="display:none">Please Enter PhoneNo</span>
+                            </div>
+                            <div class="form-group">
+                                <select id="selCounty" class="form-control">
+                                    <option class="hidden" selected disabled>Please select your Country</option>
+                                    <option>India</option>
+                                    <option>USA</option>
+                                    <option>UK</option>
+                                    <option>Canada</option>
+                                    <option>Russia</option>
+                                    <option>Australia</option>
+                                    <option>Brazil</option>
+                                    <option>Germany</option>
+                                    <option>Cuba</option>
+                                    <option>Poland</option>
+                                </select>
+                                <span style="display:none">Please Select Country</span>
+                            </div>
+
+                            <input id="btnSignUp" type="button" class="btnSignUp" value="SignUp" />
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+</div>
